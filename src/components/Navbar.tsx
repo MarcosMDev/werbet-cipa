@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { HardHat, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -28,23 +28,27 @@ const Navbar = () => {
       return;
     }
     setIsOpen(false);
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
+    // Pequeno delay para a animação do menu terminar
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 300);
   };
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-card/95 backdrop-blur-md shadow-soft" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-card/95 backdrop-blur-lg shadow-soft" : "bg-transparent"
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className="section-container">
         <nav className="flex items-center justify-center h-16 lg:h-20">
-          
-     
+
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -61,7 +65,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button (Desktop) */}
-         {/*  <button
+          {/*  <button
             onClick={() => handleLinkClick("#propostas")}
             className="hidden md:flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all"
           >
@@ -84,7 +88,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden bg-card border-t border-border"
+            className="md:hidden bg-green-900/80 backdrop-blur-2xl border-t border-green-700/50 shadow-2xl"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -95,18 +99,12 @@ const Navbar = () => {
                 <button
                   key={link.href}
                   onClick={() => handleLinkClick(link.href)}
-                  className="block w-full text-left py-3 px-4 text-foreground hover:bg-muted rounded-lg transition-colors font-medium"
+                  className="block w-full text-left py-3 px-4 text-white hover:bg-white/10 rounded-lg transition-colors font-medium"
                 >
                   {link.label}
                 </button>
               ))}
-              <button
-                onClick={() => handleLinkClick("#propostas")}
-                className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-3 px-4 rounded-lg font-semibold mt-4"
-              >
-                <HardHat size={18} />
-                Vote Werbet
-              </button>
+
             </div>
           </motion.div>
         )}

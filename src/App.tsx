@@ -12,11 +12,84 @@ import {
 import Navbar from "./components/Navbar";
 import fotoWerbet from "./assets/foto.png";
 import jingleAudio from "./assets/Música OFC _ Werbet da CIPA.mp3";
+import videoCipa from "./assets/video-cipa.mp4";
 
 function App() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({});
   const [isLyricsModalOpen, setIsLyricsModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const testimonials = [
+    {
+      id: 1,
+      initial: "W",
+      name: "William Menezes",
+      role: "Setor de T.I",
+      text: "Werbet sempre foi uma pessoa confiável e presente. Sua dedicação à segurança de todos é inspiradora.",
+      bgColor: "from-green-50",
+      borderColor: "border-green-100",
+      circleColor: "bg-green-600",
+    },
+    {
+      id: 2,
+      initial: "M",
+      name: "Marcos Magno",
+      role: "Desenvolvimento de Software",
+      text: "Com Werbet na CIPA, sei que terei alguém que realmente se importa e que vai lutar pelos nossos direitos.",
+      bgColor: "from-yellow-50",
+      borderColor: "border-yellow-100",
+      circleColor: "bg-yellow-500",
+    },
+    {
+      id: 3,
+      initial: "C",
+      name: "Cleidiane Santos",
+      role: "Comercial",
+      text: "É raro encontrar alguém tão comprometido. Werbet tem meu voto e minha confiança!",
+      bgColor: "from-green-50",
+      borderColor: "border-green-100",
+      circleColor: "bg-green-600",
+    },
+    {
+      id: 4,
+      initial: "K",
+      name: "Kaique Amaral",
+      role: "Setor de T.I",
+      text: "Werbet é a pessoa certa para representar a CIPA. Sempre presente, comprometido e disposto a ajudar em qualquer situação!",
+      bgColor: "from-green-50",
+      borderColor: "border-green-100",
+      circleColor: "bg-green-600",
+    },
+    {
+      id: 5,
+      initial: "L",
+      name: "Leandro Nunes",
+      role: "Coordenador de Operações",
+      text: "Werbet demonstra comprometimento genuíno com a segurança. Sua liderança, empatia e capacidade de ouvir são qualidades essenciais para representar a CIPA com excelência.",
+      bgColor: "from-yellow-50",
+      borderColor: "border-yellow-100",
+      circleColor: "bg-yellow-500",
+    },
+    {
+      id: 6,
+      initial: "I",
+      name: "Ivan Almeida",
+      role: "Analista de Operações - Pleno",
+      text: "Werbet é um colega que realmente se importa com o bem-estar de todos. Sua disposição em resolver problemas e garantir a segurança de cada um o torna um candidato ideal para a CIPA.",
+      bgColor: "from-green-50",
+      borderColor: "border-green-100",
+      circleColor: "bg-green-600",
+    },
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 2) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 2 + testimonials.length) % testimonials.length);
+  };
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -324,16 +397,15 @@ function App() {
                 </div>
                 Vídeo da Campanha
               </h3>
-              <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center border-2 border-green-300">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-3xl">▶</span>
-                  </div>
-                  <p className="text-gray-700 font-semibold">
-                    Vídeo de Apresentação
-                  </p>
-                  <p className="text-gray-500 text-sm mt-2">Em breve...</p>
-                </div>
+              <div className="aspect-video bg-gray-900 rounded-xl overflow-hidden border-2 border-green-300 shadow-lg">
+                <video
+                  controls
+                  className="w-full h-full"
+                  poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect fill='%23065f46' width='16' height='9'/%3E%3C/svg%3E"
+                >
+                  <source src={videoCipa} type="video/mp4" />
+                  Seu navegador não suporta o elemento de vídeo.
+                </video>
               </div>
             </div>
 
@@ -396,76 +468,88 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-lg border-2 border-green-100">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-xl">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="text-gray-700 mb-6 italic">
-                "Werbet sempre foi uma pessoa confiável e presente. Sua
-                dedicação à segurança de todos é inspiradora."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
-                  W
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">William Menezes</p>
-                  <p className="text-sm text-gray-500">Setor de T.I</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-yellow-50 to-white p-8 rounded-2xl shadow-lg border-2 border-yellow-100">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-xl">
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="text-gray-700 mb-6 italic">
-                "Com Werbet na CIPA, sei que terei alguém que realmente se
-                importa e que vai lutar pelos nossos direitos."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold">
-                  M
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">Marcos Magno</p>
-                  <p className="text-sm text-gray-500">
-                    Desenvolvimento de Software
-                  </p>
-                </div>
+          {/* Carrossel de Depoimentos */}
+          <div className="max-w-5xl mx-auto">
+            {/* Slides - 2 Cards por Slide */}
+            <div className="relative mb-12">
+              <div className="grid md:grid-cols-2 gap-8 transition-all duration-500">
+                {[0, 1].map((offset) => {
+                  const index = (currentSlide + offset) % testimonials.length;
+                  const testimonial = testimonials[index];
+                  return (
+                    <div
+                      key={testimonial.id}
+                      className={`bg-gradient-to-br ${testimonial.bgColor} to-white p-8 rounded-2xl shadow-lg border-2 ${testimonial.borderColor} transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-1`}
+                    >
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <span key={i} className="text-yellow-400 text-xl">
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-gray-700 mb-6 italic text-base leading-relaxed">
+                        "{testimonial.text}"
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-12 h-12 ${testimonial.circleColor} rounded-full flex items-center justify-center text-white font-bold`}
+                        >
+                          {testimonial.initial}
+                        </div>
+                        <div>
+                          <p className="font-bold text-gray-900">
+                            {testimonial.name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {testimonial.role}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-lg border-2 border-green-100">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className="text-yellow-400 text-xl">
-                    ★
-                  </span>
+            {/* Botões de Navegação Melhorados */}
+            <div className="flex items-center justify-between mb-8">
+              <button
+                onClick={prevSlide}
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold p-4 rounded-full transition transform hover:scale-125 shadow-lg active:scale-95 flex items-center justify-center w-14 h-14"
+                title="Depoimentos anteriores"
+              >
+                <span className="text-2xl">‹</span>
+              </button>
+
+              {/* Indicadores de Slide */}
+              <div className="flex gap-3">
+                {[0, 1].map((index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`transition-all duration-300 ${
+                      index === currentSlide
+                        ? "bg-gradient-to-r from-green-600 to-yellow-500 w-10 h-3 rounded-full shadow-lg"
+                        : "bg-gray-300 hover:bg-gray-400 w-3 h-3 rounded-full"
+                    }`}
+                    title={`Ir para slide ${index + 1}`}
+                  />
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">
-                "É raro encontrar alguém tão comprometido. Werbet tem meu voto e
-                minha confiança!"
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
-                  C
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900">Cleidiane Santos</p>
-                  <p className="text-sm text-gray-500">Comercial</p>
-                </div>
-              </div>
+
+              <button
+                onClick={nextSlide}
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold p-4 rounded-full transition transform hover:scale-125 shadow-lg active:scale-95 flex items-center justify-center w-14 h-14"
+                title="Próximos depoimentos"
+              >
+                <span className="text-2xl">›</span>
+              </button>
+            </div>
+
+            {/* Contador de Slides */}
+            <div className="text-center text-gray-600 text-sm font-medium">
+              Depoimentos {currentSlide + 1}-{Math.min(currentSlide + 2, testimonials.length)} de {testimonials.length}
             </div>
           </div>
         </div>
